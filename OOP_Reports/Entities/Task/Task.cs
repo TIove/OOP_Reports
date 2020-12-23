@@ -1,15 +1,35 @@
 using System;
 
-namespace OOP_Reports.Entities {
+namespace OOP_Reports.Entities.Task {
     public class Task {
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public Guid Owner { get; set; }
         public Status Status { get; set; }
         public DateTime LastUpdate;
 
-        public Task() {
-            
+        public Task(string name, string description, Guid owner, Status status, DateTime time)
+        {
+            Name = name;
+            Description = description;
+            Owner = owner;
+            Status = status;
+            LastUpdate = time;
+        }
+
+        public Memento Changes(Task after)
+        {
+            Memento changes = new Memento(Id);
+            if (after != null)
+            {
+                if (Description != after.Description)
+                    changes.Description = after.Description;
+                if (Status != after.Status)
+                    changes.Status = after.Status;
+            }
+
+            return changes;
         }
     }
 }

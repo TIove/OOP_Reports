@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
+using OOP_Reports.BLL;
 using OOP_Reports.DAL;
-
 
 namespace OOP_Reports.Entities {
     public class Employee {
@@ -14,12 +14,24 @@ namespace OOP_Reports.Entities {
             Name = name;
         }
 
-        public void AddNewUnderlings(params Guid[] peopleId) {
-            foreach (var id in peopleId) {
-                Underlings.Add(id);
-                AccessBDStaff
-            }
+        public void AddNewTask(Task.Task task)
+        {
+            BDTasksController.AddNewTask(task);
+        }
+
+        public void ChangeTask(Task.Task task)
+        {
+            BDTasksController.EditTask(task);
         }
         
+        public void ResolveTask(Guid id)
+        {
+            BDTasksController.Resolve(id);
+        }
+
+        public void CreateDailyReport()
+        {
+            
+        }
     }
 }
