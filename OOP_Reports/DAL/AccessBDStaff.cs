@@ -5,16 +5,17 @@ using OOP_Reports.Entities;
 
 namespace OOP_Reports.DAL {
     public class AccessBDStaff {
-        public void Add() {
-            
-        }
-
-        public void Remove()
+        public static void AddNewEmployee(Employee employee)
         {
-            
+            BDStaff.ListOfStaff[employee.Id] = employee;
         }
 
-        public Employee Get(Guid id)
+        public static void RemoveEmployee(Guid id)
+        {
+            BDStaff.ListOfStaff.Remove(id);
+        }
+
+        public static Employee Get(Guid id)
         {
             return BDStaff.ListOfStaff.GetValueOrDefault(id, null);
         }
