@@ -1,5 +1,6 @@
 ﻿using System;
 using OOP_Reports.DAL;
+using OOP_Reports.DataBases;
 using OOP_Reports.Entities;
 
 namespace OOP_Reports.BLL
@@ -16,6 +17,14 @@ namespace OOP_Reports.BLL
             AccessBDStaff.AddNewEmployee(employee);
         }
 
-        
+        public static void SetNewLeader(Guid leaderId, Guid employeeId)
+        {
+            var employee = AccessBDStaff.Get(employeeId);
+            var lead = AccessBDStaff.Get(leaderId);
+            lead.Underlings.Add(employee.Id);
+            employee.Leader = leaderId;
+            AccessBDStaff.Update(employee);
+            AccessBDStaff.Update(lead);
+        }
     }
 }

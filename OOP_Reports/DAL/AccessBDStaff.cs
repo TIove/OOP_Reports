@@ -19,5 +19,11 @@ namespace OOP_Reports.DAL {
         {
             return BDStaff.ListOfStaff.GetValueOrDefault(id, null);
         }
+
+        public static void Update(Employee employee)
+        {
+            BDStaff.ListOfStaff[employee.Id] = employee;
+        }
+        
     }
 }

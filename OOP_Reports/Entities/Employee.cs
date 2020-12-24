@@ -9,14 +9,31 @@ namespace OOP_Reports.Entities {
         public Guid Id { get; set; }
         public bool IsTeamLead = false;
         public string Name { get; set; }
-        public Guid Leader { get; set; }
+        public Guid Leader { get; set; } = Guid.Empty;
         public List<Guid> Underlings { get; set; } = new List<Guid>();
         
         public Employee(string name) {
             Id = Guid.NewGuid();
             Name = name;
+            if (Leader.Equals(Guid.Empty))
+            {
+                IsTeamLead = true;
+            }
         }
 
+        public void AddUnderlings(List<Guid> ids)
+        {
+            Underlings.AddRange(ids);
+        }
+
+        public void AddLeader(Guid leaderId)
+        {
+            if (IsTeamLead)
+            {
+                IsTeamLead = false;
+            }
+            BDStaffController.SetNewLeader(leaderId, Id);
+        }
         public void AddNewTask(Task.Task task)
         {
             BDTasksController.AddNewTask(task);
