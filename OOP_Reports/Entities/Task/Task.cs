@@ -9,8 +9,8 @@ namespace OOP_Reports.Entities.Task {
         public Status Status { get; set; }
         public DateTime LastUpdate;
 
-        public Task(string name, string description, Guid owner, Status status, DateTime time)
-        {
+        public Task(string name, string description, Guid owner, Status status, DateTime time) {
+            Id = Guid.NewGuid();
             Name = name;
             Description = description;
             Owner = owner;
@@ -18,6 +18,14 @@ namespace OOP_Reports.Entities.Task {
             LastUpdate = time;
         }
 
+        public Task(Task task) {
+            Id = task.Id;
+            Name = task.Name;
+            Description = task.Description;
+            Owner = task.Owner;
+            Status = task.Status;
+            LastUpdate = task.LastUpdate;
+        }
         public Memento Changes(Task after)
         {
             Memento changes = new Memento(Id);

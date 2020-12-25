@@ -98,9 +98,11 @@ namespace OOP_Reports.DAL
                 BDTasks.ListsOfLastResolvedTasks.Add(task.Owner, new List<Task>() {task});
         }
         
-        public static List<Task> GetLastResolvedTasks(Guid id)
-        {
-            return BDTasks.ListsOfLastResolvedTasks[id];
+        public static List<Task> GetLastResolvedTasks(Guid id) {
+            if (BDTasks.ListsOfLastResolvedTasks.ContainsKey(id))
+                return BDTasks.ListsOfLastResolvedTasks[id];
+            else
+                return null;
         }
 
         public static void DeleteLastResolvedTasks(Guid id)

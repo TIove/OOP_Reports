@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using OOP_Reports.BLL;
 using OOP_Reports.DataBases;
 using OOP_Reports.Entities;
 using OOP_Reports.Entities.Report;
@@ -25,9 +26,21 @@ namespace OOP_Reports.DAL
                 .Find(x => x.Id.Equals(id));
         }
         
-        public static List<Report> GetAllReportsOfEmployee(Guid id)
+        public static List<Report> GetAllReportsOfEmployee(Guid id) {
+            if (BDReports.Reports.ContainsKey(id))
+                return BDReports.Reports[id];
+            else
+                return new List<Report>();
+        }
+
+        public static List<Report> GetAllReportsOfUnderlings(Guid id) 
         {
-            return BDReports.Reports[id];
+            var res = new List<Report>();
+            foreach (var underlingId in BDStaffController.GetEmployee(id).Underlings) {
+                res.AddRange(GetAllReportsOfEmployee(underlingId));
+            }
+
+            return res;
         }
     }
 }

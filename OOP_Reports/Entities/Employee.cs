@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using OOP_Reports.BLL;
 using OOP_Reports.DAL;
 using OOP_Reports.DataBases;
@@ -51,21 +52,24 @@ namespace OOP_Reports.Entities {
 
         public void CreateDailyReport(string description = null)
         {
-            var resolvedTasks = BDTasksController.GetAllLastResolvedTasks(Id);
-            BDTasksController.DeleteLastResolvedTasks(Id);
+        //     oldList.ForEach((item)=> { newList.Add(new SomeType(item));});
+            var resolvedTasks = new List<Task.Task>();
+            BDTasksController.GetAllLastResolvedTasks(Id).ForEach((item) => { resolvedTasks.Add(new Task.Task(item)); });
             var report = new Report.Report(Guid.NewGuid(), Id, resolvedTasks, description);
             BDReportsController.CreateDailyReport(report);
+            BDTasksController.DeleteLastResolvedTasks(Id);
         }
 
         public void CreateSprintReport(string description = null)
         {
-            if (BDTasksController.GetAllLastResolvedTasks(Id).Count != 0) 
+            if (BDTasksController.GetAllLastResolvedTasks(Id) != null 
+                && BDTasksController.GetAllLastResolvedTasks(Id).Count != 0) 
                 CreateDailyReport();
-
-            BDReportsController.CreateSprintReportEmployee(new Report.Report( Guid.NewGuid()
-                    , Id
-                    , BDReportsController.GetAllResolvedTasks(Id)
-                    , description));
+            var report = new Report.Report(Guid.NewGuid()
+                , Id
+                , BDReportsController.GetAllResolvedTasks(Id)
+                , description);
+            BDReportsController.CreateSprintReportEmployee(report);
         }
     }
 }

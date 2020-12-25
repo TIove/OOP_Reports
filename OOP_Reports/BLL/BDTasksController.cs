@@ -57,6 +57,20 @@ namespace OOP_Reports.BLL
             AccessBDTasks.AddNewResolvedTask(AccessBDTasks.GetTaskById(id));
         }
 
+        public static void SetActiveState(Guid id)
+        {
+            var task = AccessBDTasks.GetTaskById(id);
+            task.Status = Status.Active;
+            AccessBDTasks.UpdateTask(task);
+        }
+        
+        public static void SetUnActiveState(Guid id)
+        {
+            var task = AccessBDTasks.GetTaskById(id);
+            task.Status = Status.Open;
+            AccessBDTasks.UpdateTask(task);
+        }
+        
         public static void ChangeOwnerById(Guid taskId, Guid newOwnerId)
         {
             var task = AccessBDTasks.GetTaskById(taskId);
