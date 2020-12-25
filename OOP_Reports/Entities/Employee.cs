@@ -7,11 +7,11 @@ using OOP_Reports.DataBases;
 
 namespace OOP_Reports.Entities {
     public class Employee {
-        public Guid Id { get; set; }
+        public Guid Id { get;}
         public bool IsTeamLead = false;
-        public string Name { get; set; }
+        public string Name { get; }
         public Guid Leader { get; set; } = Guid.Empty;
-        public List<Guid> Underlings { get; set; } = new List<Guid>();
+        public List<Guid> Underlings { get;} = new List<Guid>();
         
         public Employee(string name) {
             Id = Guid.NewGuid();

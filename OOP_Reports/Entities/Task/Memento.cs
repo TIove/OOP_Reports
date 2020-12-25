@@ -4,10 +4,10 @@ namespace OOP_Reports.Entities.Task
 {
     public class Memento
     {
-        public Guid Id { get; set; }
+        public Guid Id { get;}
         public string Description { get; set; }
         public Status Status { get; set; }
-        public DateTime LastUpdate;
+        public DateTime LastUpdate { get; }
 
         public Memento(Guid id, Status? status = null, string description = null)
         {
