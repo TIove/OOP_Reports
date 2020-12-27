@@ -87,6 +87,5 @@ namespace OOP_Reports.BLL
         {
             AccessBDTasks.DeleteLastResolvedTasks(id);
         }
-        
     }
 }

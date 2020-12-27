@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using OOP_Reports.BLL;
 
 namespace OOP_Reports.Entities.Report {
     public class Report {
@@ -18,6 +19,17 @@ namespace OOP_Reports.Entities.Report {
             SolvedTasks = solvedTasks;
             Description = description;
             TimeOfCreate = DateTime.Now;
+        }
+
+        public override string ToString() {
+            string s = "";
+            foreach (var task in SolvedTasks) {
+                s += task.Name + '\n';
+            }
+            return "Отчет\n" +
+                   $"Создатель отчета - {BDStaffController.GetEmployee(Owner).Name}\n" +
+                   $"Описание - {Description}\n" +
+                   $"Выполненные задачи:\n {s}";
         }
     }
 }
