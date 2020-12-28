@@ -22,6 +22,9 @@ namespace OOP_Reports.Entities {
             }
         }
 
-        
+        public override string ToString() {
+            return $"\nId - {Id} " +
+                   $"Name = {Name}\n";
+        }
     }
 }

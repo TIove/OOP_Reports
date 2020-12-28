@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using OOP_Reports.BLL;
+using OOP_Reports.DAL;
 using OOP_Reports.Entities;
 using OOP_Reports.Entities.Task;
 using Task = OOP_Reports.Entities.Task.Task;
@@ -22,12 +23,16 @@ namespace OOP_Reports.UI {
                 "4. Завершить задачу у сотрудника\n" +
                 "5. Создать отчет за день у сотрудника\n" +
                 "6. Создать отчет за спринт у сотрудника\n" +
-                "7. Создать отчет за спринт у тимлида"
+                "7. Посмотреть все ID сотрудников\n" +
+                "8. Псмотреть все задачи сотрудника"
             );
         }
 
         private void GetCommand() {
+            bool isEnd = false;
             while (true) {
+                if (isEnd)
+                    break;
                 PrintStartMenu();
                 int cmd = 0;
                 try {
@@ -49,11 +54,15 @@ namespace OOP_Reports.UI {
                     }
                     case 2: {
                         Guid lId;
+                        Console.WriteLine("Id лидера");
                         bool isLIdGuid = Guid.TryParse(Console.ReadLine(), out lId);
                         Guid eId;
+                        Console.WriteLine("Id подчиненного");
                         bool isEIdGuid = Guid.TryParse(Console.ReadLine(), out eId);
                         if (isEIdGuid && isLIdGuid)
                             BDStaffController.SetNewLeader(lId, eId);
+                        else
+                            Console.WriteLine("Ошибка");
                         break;
                     }
                     case 3: {
@@ -61,7 +70,7 @@ namespace OOP_Reports.UI {
                         Guid owner;
                         if (!Guid.TryParse(Console.ReadLine(), out owner)) {
                             Console.WriteLine("Неправильный формат id");
-                            return;
+                            break;
                         }
 
                         Console.WriteLine("Введите имя задачи");
@@ -78,49 +87,77 @@ namespace OOP_Reports.UI {
                         Guid idTask;
                         if (!Guid.TryParse(Console.ReadLine(), out idTask)) {
                             Console.WriteLine("Неправильный формат id");
-                            return;
+                            break;
                         }
 
-                        BDTasksController.Resolve(idTask);
+                        try {
+                            BDTasksController.Resolve(idTask);
+                            Console.WriteLine("Успех");
+                        }
+                        catch (Exception) {
+                            Console.WriteLine("Ошибка");
+                        }
+
                         break;
                     }
                     case 5: {
-                        Console.WriteLine("Введите id задачи");
+                        Console.WriteLine("Введите id сотрудника");
                         Guid idEmplDaily;
                         if (!Guid.TryParse(Console.ReadLine(), out idEmplDaily)) {
                             Console.WriteLine("Неправильный формат id");
-                            return;
+                            break;
                         }
 
-                        Console.WriteLine();
+                        Console.WriteLine("Введите описание отчета");
                         var descDailRep = Console.ReadLine();
                         BDReportsController.CreateDailyReport(idEmplDaily, descDailRep);
                         break;
                     }
                     case 6: {
-                        Console.WriteLine("Введите id задачи");
+                        Console.WriteLine("Введите id сотрудника");
                         Guid idEmplSprint;
                         if (!Guid.TryParse(Console.ReadLine(), out idEmplSprint)) {
                             Console.WriteLine("Неправильный формат id");
                             return;
                         }
 
-                        Console.WriteLine();
+                        Console.WriteLine("Введите описание отчета");
                         var descSprintRep = Console.ReadLine();
                         BDReportsController.CreateSprintReport(idEmplSprint, descSprintRep);
+                        if (BDStaffController.GetEmployee(idEmplSprint).IsTeamLead) {
+                            isEnd = true;
+                            Console.WriteLine("Отчет за спринт\n" + 
+                                              BDReportsController.GetSprintReport());
+                        }
+
                         break;
                     }
                     case 7: {
-                        Console.WriteLine("Введите id задачи");
+                        foreach (var employee in BDStaffController.GetAllStaffIdList()) {
+                            Console.WriteLine(employee);
+                        }
+
+                        break;
+                    }
+                    case 8: {
+                        Console.WriteLine("Введите id сотрудника");
                         Guid idEmplSprint;
                         if (!Guid.TryParse(Console.ReadLine(), out idEmplSprint)) {
                             Console.WriteLine("Неправильный формат id");
                             return;
                         }
 
-                        Console.WriteLine();
-                        var descSprintRep = Console.ReadLine();
-                        BDReportsController.CreateSprintReport(idEmplSprint, descSprintRep);
+                        try {
+                            foreach (var task in AccessBDTasks.GetTasksByEmployeeId(idEmplSprint)) {
+                                Console.WriteLine("\nId - " + task.Id
+                                                            + " Name - " + task.Name
+                                                            + " Description - " + task.Description + '\n');
+                            }
+                        }
+                        catch (KeyNotFoundException ex) {
+                            
+                        }
+
                         break;
                     }
                     default:

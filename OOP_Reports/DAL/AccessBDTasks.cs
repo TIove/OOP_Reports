@@ -10,6 +10,9 @@ namespace OOP_Reports.DAL
 {
     public class AccessBDTasks
     {
+        public static List<Task> GetAllTasksByEmployeeId(Guid employeeId) {
+            return BDTasks.ListsOfTasks[employeeId];
+        }
         public static Task GetTaskById(Guid id)
         {
             return BDTasks.ListsOfTasks.Values
@@ -102,7 +105,7 @@ namespace OOP_Reports.DAL
             if (BDTasks.ListsOfLastResolvedTasks.ContainsKey(id))
                 return BDTasks.ListsOfLastResolvedTasks[id];
             else
-                return null;
+                return new List<Task>();
         }
 
         public static void DeleteLastResolvedTasks(Guid id)

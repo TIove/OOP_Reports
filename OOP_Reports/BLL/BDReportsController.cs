@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using OOP_Reports.DAL;
 using OOP_Reports.DataBases;
+using OOP_Reports.Entities;
 using OOP_Reports.Entities.Report;
 using OOP_Reports.Entities.Task;
 
@@ -44,7 +45,9 @@ namespace OOP_Reports.BLL
             BDTasksController.GetAllLastResolvedTasks(id).ForEach((item) => { resolvedTasks.Add(new Task(item)); });
             var report = new Report(Guid.NewGuid(), id, resolvedTasks, description);
             CreateDailyReport(report);
-            BDTasksController.DeleteLastResolvedTasks(id);
+            if (resolvedTasks.Count != 0)
+                BDTasksController.DeleteLastResolvedTasks(id);
+            
         }
         
         public static void CreateSprintReport(Guid id, string description = null)
@@ -57,6 +60,10 @@ namespace OOP_Reports.BLL
                 , GetAllResolvedTasks(id)
                 , description);
             CreateSprintReportEmployee(report);
+        }
+
+        public static Report GetSprintReport() {
+            return AccessBDReports.GetSprintReport();
         }
     }
 }

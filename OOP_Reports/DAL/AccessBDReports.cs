@@ -42,5 +42,16 @@ namespace OOP_Reports.DAL
 
             return res;
         }
+
+        public static Report GetSprintReport() {
+            foreach (var lRep in BDReports.Reports.Values) {
+                foreach (var report in lRep) {
+                    if (report.Mode == ModeReport.TeamLeadSprint)
+                        return report;
+                }
+            }
+
+            return null;
+        }
     }
 }

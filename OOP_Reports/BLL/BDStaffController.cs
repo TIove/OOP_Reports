@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using OOP_Reports.DAL;
 using OOP_Reports.DataBases;
 using OOP_Reports.Entities;
@@ -8,6 +9,9 @@ namespace OOP_Reports.BLL
 {
     public class BDStaffController
     {
+        public static List<Employee> GetAllStaffIdList() {
+            return BDStaff.ListOfStaff.Values.ToList();
+        }
         public static Employee GetEmployee(Guid id)
         {
             return AccessBDStaff.Get(id);
