@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup />
+  <ItemGroup />
+  <ItemGroup>
+    <Compile Update="UI\AddTask.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\AddUnderling.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\DailyReport.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\EndTask.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\ShowStaff.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\ShowTasks.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\SprintReport.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="UI\AddTask.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\AddUnderling.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\DailyReport.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\EndTask.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\ShowStaff.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\ShowTasks.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\SprintReport.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+</Project>

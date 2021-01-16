@@ -1,0 +1,16 @@
+﻿<Window x:Class="Lab6.UI.ShowStaff"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Lab6.UI"
+        mc:Ignorable="d"
+        Title="ShowStuff" Height="300" Width="400"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Button Content="Обновить" Margin="0,0,10,10" RenderTransformOrigin="-0.665,0.603" Click="Button_Click" HorizontalAlignment="Right" Width="127" Height="32" VerticalAlignment="Bottom"/>
+        <TextBox x:Name="Staff" Margin="10,10,10,47" TextWrapping="Wrap"/>
+
+    </Grid>
+</Window>

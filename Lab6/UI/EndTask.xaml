@@ -1,0 +1,17 @@
+﻿<Window x:Class="Lab6.UI.EndTask"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Lab6.UI"
+        mc:Ignorable="d"
+        Title="EndTask" Height="300" Width="400"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Label Content="Введите id задачи" FontSize="20" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="36" Width="175"/>
+        <TextBox x:Name="TId" HorizontalAlignment="Right" Margin="0,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="176" Height="36"/>
+        <Button x:Name="Delete" Content="Завершить задачу" HorizontalAlignment="Center" Margin="0,107,0,0" VerticalAlignment="Top" Height="35" Width="161" Click="Button_Click"/>
+
+    </Grid>
+</Window>
